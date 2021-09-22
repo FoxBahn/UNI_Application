@@ -1,4 +1,4 @@
 za\ac\nwu\account\web\sb\config\SwaggerConfiguration.class
-za\ac\nwu\account\web\sb\exception\RestServiceApplication.class
 za\ac\nwu\account\web\sb\controller\AccountTypeController.class
+za\ac\nwu\account\web\sb\RestServiceApplication.class
 za\ac\nwu\account\web\sb\config\WebConfig.class
