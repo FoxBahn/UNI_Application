@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 //import java.time.LocalDate;
-
+@Entity
 @Table(name = "Account_Type",schema = "HR")
 public class AccountTransaction implements Serializable {
 
@@ -45,7 +45,7 @@ public class AccountTransaction implements Serializable {
         return accountType;
     }
 
-    public void setAccountTypeId(AccountType accountType) {
+    public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
     @Column(name = "ACCOUNT_MEMBER_ID")

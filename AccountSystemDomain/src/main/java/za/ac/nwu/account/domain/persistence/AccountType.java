@@ -3,6 +3,7 @@ package za.ac.nwu.account.domain.persistence;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 //import java.time.LocalDate;
 @Entity
@@ -12,6 +13,8 @@ public class AccountType implements Serializable {
     private Long accountTypeID;
     private Long mnemonic;
     private Long accountTypeName;
+
+    private Set<AccountTransaction> accountTransactions;
 
     public AccountType() {
     }
@@ -26,7 +29,6 @@ public class AccountType implements Serializable {
     @Id
     @SequenceGenerator(name = "AccountType_ID_Seq", sequenceName = "AccountType_Seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AccountType_ID_Seq")
-
 
     @Column(name = "ACCOUNT_TYPE_ID")
     public Long getAccountTypeID() {
@@ -53,6 +55,15 @@ public class AccountType implements Serializable {
 
     public void setAccountTypeName(Long accountTypeName) {
         this.accountTypeName = accountTypeName;
+    }
+
+
+    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    public Set<AccountTransaction> getAccountTransactions(){
+        return accountTransactions;
+    }
+    public void setAccountTransactions(Set<AccountTransaction> accountTransactions) {
+        this.accountTransactions = accountTransactions;
     }
 
     @Override
