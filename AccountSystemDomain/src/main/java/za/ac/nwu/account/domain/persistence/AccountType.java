@@ -15,37 +15,41 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
-//import java.time.LocalDate;
+
 @Entity
 @Table(name = "Account_Type",schema = "HR")
-public class AccountType implements Serializable {
+public class   AccountType implements Serializable {
 
+    private static final long serialVersionUID = 243591207966341647L;
     private Long accountTypeID;
-    private Long mnemonic;
-    private Long accountTypeName;
+    private String mnemonic;
+    private String accountTypeName;
     private LocalDate creationDate;
 
     private Set<AccountTransaction> accountTransactions;
 
     public AccountType() {
+
     }
 
-    public AccountType(Long accountTypeID, Long mnemonic, Long accountTypeName) {
+    public AccountType(Long accountTypeID, String mnemonic, String accountTypeName, LocalDate creationDate) {
         this.accountTypeID = accountTypeID;
         this.mnemonic = mnemonic;
         this.accountTypeName = accountTypeName;
         this.creationDate = creationDate;
     }
-
-    private static final long serialVersionUID = 243591207966341647L;
-
+    public AccountType(String mnemonic, String accountTypeName, LocalDate creationDate) {
+        this.mnemonic = mnemonic;
+        this.accountTypeName = accountTypeName;
+        this.creationDate = creationDate;
+    }
 
     @Id
     @SequenceGenerator(name = "AccountType_ID_Seq", sequenceName = "AccountType_Seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AccountType_ID_Seq")
 
     @Column(name = "ACCOUNT_TYPE_ID")
-    public Long getAccountTypeID() {
+    public long getAccountTypeID() {
         return accountTypeID;
     }
 
@@ -54,20 +58,20 @@ public class AccountType implements Serializable {
     }
 
     @Column(name = "MNEMONIC")
-    public Long getMnemonic() {
+    public String getMnemonic() {
         return mnemonic;
     }
 
-    public void setMnemonic(Long mnemonic) {
+    public void setMnemonic(String mnemonic) {
         this.mnemonic = mnemonic;
     }
 
     @Column(name = "ACCOUNT_TYPE_NAME")
-    public Long getAccountTypeName() {
+    public String getAccountTypeName() {
         return accountTypeName;
     }
 
-    public void setAccountTypeName(Long accountTypeName) {
+    public void setAccountTypeName(String accountTypeName) {
         this.accountTypeName = accountTypeName;
     }
 

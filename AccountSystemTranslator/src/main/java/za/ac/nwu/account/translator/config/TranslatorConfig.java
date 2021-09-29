@@ -8,10 +8,10 @@ import za.ac.nwu.account.repo.config.RepositoryConfig;
 
 @Import({RepositoryConfig.class})
 @Configuration
+
 @ComponentScan(basePackages = {
         "za.ac.nwu.account.translator"
 })
-
 public class TranslatorConfig {
 
 

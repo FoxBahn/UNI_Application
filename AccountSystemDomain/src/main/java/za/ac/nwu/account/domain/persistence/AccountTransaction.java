@@ -22,15 +22,13 @@ public class AccountTransaction implements Serializable {
     public AccountTransaction(Long transactionId, AccountType accountType, Long memberId, Long amount) {
         this.transactionId = transactionId;
         this.accountType = accountType;
-        this.amount = amount;
         this.memberId = memberId;
+        this.amount = amount;
     }
 
     @Id
     @SequenceGenerator(name = "AccountType_ID_Seq", sequenceName = "AccountType_Seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AccountType_ID_Seq")
-
-
     @Column(name = "ACCOUNT_MILES_ID")
     public Long getTransactionId() {
         return transactionId;
@@ -39,6 +37,7 @@ public class AccountTransaction implements Serializable {
     public void setTransactionId(Long transactionId) {
         this.transactionId = transactionId;
     }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_TYPE_ID")
     public AccountType getAccountType() {
