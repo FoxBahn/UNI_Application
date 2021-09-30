@@ -11,34 +11,33 @@ public class AccountTypeDto implements Serializable {
 
     private static final long serialVersionUID = -7579560883254875184L;
 
-    private Long mnemonic;
-    private Long accountTypeName;
+    private String mnemonic;
+    private String accountTypeName;
     private LocalDate creationDate;
 
-    public AccountTypeDto(){
+    public AccountTypeDto(AccountType accountType){
+
     }
 
-    public AccountTypeDto(Long mnemonic, Long accountTypeName, LocalDate creationDate) {
+    public AccountTypeDto(String mnemonic, String accountTypeName, LocalDate creationDate) {
         this.mnemonic = mnemonic;
         this.accountTypeName = accountTypeName;
         this.creationDate = creationDate;
     }
 
-    public AccountTypeDto(AccountType accountType){
-        this.setMnemonic(accountType.getMnemonic());
+    public AccountTypeDto(AccountTypeDto accountType){
         this.setAccountTypeName(accountType.getAccountTypeName());
         this.setCreationDate(accountType.getCreationDate());
+        this.setMnemonic(accountType.getMnemonic());
     }
 
+    public String getMnemonic() {return mnemonic;}
 
+    public void setMnemonic(String mnemonic) {this.mnemonic = mnemonic;}
 
-    public Long getMnemonic() {return mnemonic;}
+    public String getAccountTypeName() {return accountTypeName;}
 
-    public void setMnemonic(Long mnemonic) {this.mnemonic = mnemonic;}
-
-    public Long getAccountTypeName() {return accountTypeName;}
-
-    public void setAccountTypeName(Long accountTypeName) {this.accountTypeName = accountTypeName;}
+    public void setAccountTypeName(String accountTypeName) {this.accountTypeName = accountTypeName;}
 
     public LocalDate getCreationDate() {return creationDate;}
 

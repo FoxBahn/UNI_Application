@@ -23,16 +23,15 @@ public class FetchAccountTypeFlowImpl implements FetchAccountTypeFlow {
 
     @Override
     public List<AccountTypeDto> getAllAccountTypes() {
-
        return accountTypeTranslator.getAllAccountTypes();
     }
 
-//    @Override
-//    public List<AccountTypeDto> getAllAccountTypes() {
-//    List<AccountTypeDto> accountTypeDtos = new ArrayList<>();
-//    accountTypeDtos.add(new AccountTypeDto("DEFAULT", "Default", LocalDate.now()));
-//    return accountTypeDtos;
+//        @Override
+//    public List<AccountTypeDto> getAllAccountTypes1() {
+//        List<AccountTypeDto> accountTypeDtos = new ArrayList<>();
+//        accountTypeDtos.add(new AccountTypeDto("PLAYS", "Plays", LocalDate.now()));
+//        return accountTypeDtos;
 //    }
 
-/////////////Combo check to keep adding fields
+
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 import za.ac.nwu.account.domain.persistence.AccountType;
 
 @Repository
-public interface AccountTypeRepository extends JpaRepository<AccountType, String> {
+public interface AccountTypeRepository extends JpaRepository<AccountType, Long> {
 
 }
