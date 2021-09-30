@@ -16,6 +16,9 @@ public class AccountTransaction implements Serializable {
     private Long memberID;
     private Long amount;
 
+    public AccountTransaction() {
+
+    }
 
     public AccountTransaction(Long transactionID, AccountType accountType, Long memberID, Long amount) {
         this.transactionID = transactionID;
@@ -23,6 +26,8 @@ public class AccountTransaction implements Serializable {
         this.memberID = memberID;
         this.amount = amount;
     }
+
+
 
     @Id
     @SequenceGenerator(name = "AccountType_ID_Seq", sequenceName = "AccountType_Seq", allocationSize = 1)
