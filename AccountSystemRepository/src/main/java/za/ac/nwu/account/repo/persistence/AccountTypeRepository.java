@@ -6,4 +6,5 @@ import za.ac.nwu.account.domain.persistence.AccountType;
 
 @Repository
 public interface AccountTypeRepository extends JpaRepository<AccountType, Long> {
+
 }
