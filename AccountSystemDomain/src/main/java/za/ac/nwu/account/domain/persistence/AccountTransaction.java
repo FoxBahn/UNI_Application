@@ -6,24 +6,22 @@ import java.util.Objects;
 
 //import java.time.LocalDate;
 @Entity
-@Table(name = "Account_Type",schema = "HR")
+@Table(name = "Account_TRANSACTION",schema = "HR")
 public class AccountTransaction implements Serializable {
 
     private static final long serialVersionUID = 243591207966341647L;
 
-    private Long transactionId;
+    private Long transactionID;
     private AccountType accountType;
-    private Long memberId;
+    private Long memberID;
     private Long amount;
 
-    public AccountTransaction() {
-    }
 
-    public AccountTransaction(Long transactionId, AccountType accountType, Long memberId, Long amount) {
-        this.transactionId = transactionId;
+    public AccountTransaction(Long transactionID, AccountType accountType, Long memberID, Long amount) {
+        this.transactionID = transactionID;
         this.accountType = accountType;
+        this.memberID = memberID;
         this.amount = amount;
-        this.memberId = memberId;
     }
 
     @Id
@@ -32,32 +30,33 @@ public class AccountTransaction implements Serializable {
 
 
     @Column(name = "ACCOUNT_MILES_ID")
-    public Long getTransactionId() {
-        return transactionId;
+    public Long getTransactionID() {
+        return transactionID;
     }
 
-    public void setTransactionId(Long transactionId) {
-        this.transactionId = transactionId;
+    public void setTransactionID(Long transactionId) {
+        this.transactionID = transactionID;
     }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_TYPE_ID")
-    public AccountType getAccountType() {
-        return accountType;
-    }
+    @Column(name = "ACCOUNT_TYPE_ID")
+    public AccountType getAccountType() {  return accountType; }
 
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
     }
+
     @Column(name = "ACCOUNT_MEMBER_ID")
-    public Long getMemberId() {
-        return memberId;
+    public Long getMemberID() {
+        return memberID;
     }
 
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
+    public void setMemberID(Long memberId) {
+        this.memberID = memberID;
     }
 
-    @Column(name = "ACCOUNT_MILES_AMOUNT")
+    @Column(name = "ACCOUNT_TRANSACTION_AMOUNT")
     public Long getAmount() {
         return amount;
     }
@@ -71,21 +70,22 @@ public class AccountTransaction implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransaction that = (AccountTransaction) o;
-        return Objects.equals(transactionId, that.transactionId) && Objects.equals(accountType, that.accountType) && Objects.equals(memberId, that.memberId) && Objects.equals(amount, that.amount);
+        return Objects.equals(transactionID, that.transactionID) && Objects.equals(accountType, that.accountType) && Objects.equals(memberID, that.memberID) && Objects.equals(amount, that.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionId, accountType, memberId, amount);
+        return Objects.hash(transactionID, memberID, amount);
     }
 
     @Override
     public String toString() {
         return "AccountTransaction{" +
-                "transactionId= " + transactionId +
+                "transactionID= " + transactionID +
                 ", accountType= "  + accountType +
-                ", memberId= " + memberId +
+                ", memberID= " + memberID +
                 ", amount= " + amount +
-                '}';
+                '}' ;
+
     }
 }

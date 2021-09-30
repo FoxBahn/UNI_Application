@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 public class AccountTypeTranslatorImpl implements AccountTypeTranslator {
     
-    private AccountTypeRepository accountTypeRepository;
+    private final AccountTypeRepository accountTypeRepository;
 
    @Autowired
    public AccountTypeTranslatorImpl(AccountTypeRepository accountTypeRepository){

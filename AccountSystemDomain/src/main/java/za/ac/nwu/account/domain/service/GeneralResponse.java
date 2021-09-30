@@ -36,6 +36,4 @@ public class GeneralResponse<T>  implements Serializable {
                 '}';
     }
 
-
-
 }
