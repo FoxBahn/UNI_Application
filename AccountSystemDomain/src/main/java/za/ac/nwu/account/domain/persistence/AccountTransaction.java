@@ -2,50 +2,50 @@ package za.ac.nwu.account.domain.persistence;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 //import java.time.LocalDate;
 @Entity
-@Table(name = "Account_TRANSACTION",schema = "HR")
+@Table(name = "ACCOUNT_TRANSACTION",schema = "HR")
 public class AccountTransaction implements Serializable {
 
     private static final long serialVersionUID = 243591207966341647L;
 
-    private Long transactionID;
+    private Integer transactionID;
+
     private AccountType accountType;
-    private Long memberID;
-    private Long amount;
+    private Integer memberID;
+    private String amount;
+    private LocalDate transactionDate;
+
+
+    public AccountTransaction(Integer transactionID, AccountType accountType, Integer memberID, String amount, LocalDate transactionDate) {
+        this.transactionID = transactionID;
+        this.accountType = accountType;
+        this.memberID = memberID;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+    }
 
     public AccountTransaction() {
 
     }
 
-    public AccountTransaction(Long transactionID, AccountType accountType, Long memberID, Long amount) {
-        this.transactionID = transactionID;
-        this.accountType = accountType;
-        this.memberID = memberID;
-        this.amount = amount;
-    }
-
-
-
     @Id
-    @SequenceGenerator(name = "AccountType_ID_Seq", sequenceName = "AccountType_Seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AccountType_ID_Seq")
-
-
+    @SequenceGenerator(name = "ACCOUNT_TRANSACTION_SEQ", sequenceName = "ACCOUNT_TRANSACTION_SEQNAME", allocationSize = 1)
+    @GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "ACCOUNT_TRANSACTION_SEQ")
     @Column(name = "ACCOUNT_MILES_ID")
-    public Long getTransactionID() {
+    public Integer getTransactionID() {
         return transactionID;
     }
 
-    public void setTransactionID(Long transactionId) {
+    public void setTransactionID(Integer transactionId) {
         this.transactionID = transactionID;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ACCOUNT_TYPE_ID")
-    @Column(name = "ACCOUNT_TYPE_ID")
     public AccountType getAccountType() {  return accountType; }
 
     public void setAccountType(AccountType accountType) {
@@ -53,21 +53,30 @@ public class AccountTransaction implements Serializable {
     }
 
     @Column(name = "ACCOUNT_MEMBER_ID")
-    public Long getMemberID() {
+    public Integer getMemberID() {
         return memberID;
     }
 
-    public void setMemberID(Long memberId) {
+    public void setMemberID(Integer memberId) {
         this.memberID = memberID;
     }
 
     @Column(name = "ACCOUNT_TRANSACTION_AMOUNT")
-    public Long getAmount() {
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    @Column(name = "ACCOUNT_TRANSACTION_DATE")
+    public LocalDate getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDate amount) {
+        this.transactionDate = transactionDate;
     }
 
     @Override
@@ -75,7 +84,7 @@ public class AccountTransaction implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransaction that = (AccountTransaction) o;
-        return Objects.equals(transactionID, that.transactionID) && Objects.equals(accountType, that.accountType) && Objects.equals(memberID, that.memberID) && Objects.equals(amount, that.amount);
+        return Objects.equals(transactionID, that.transactionID) && Objects.equals(accountType, that.accountType) && Objects.equals(memberID, that.memberID) &&  Objects.equals(transactionDate, that.transactionDate);
     }
 
     @Override
@@ -90,6 +99,7 @@ public class AccountTransaction implements Serializable {
                 ", accountType= "  + accountType +
                 ", memberID= " + memberID +
                 ", amount= " + amount +
+                "transactionDate= " + transactionDate +
                 '}' ;
 
     }

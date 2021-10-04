@@ -1,15 +1,6 @@
 package za.ac.nwu.account.domain.persistence;
 
 import javax.persistence.*;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -17,64 +8,61 @@ import java.util.Set;
 
 //import java.time.LocalDate;
 @Entity
-@Table(name = "Account_Type",schema = "HR")
+@Table(name = "ACCOUNT_TYPE",schema = "HR")
 public class AccountType implements Serializable {
 
-    private Long accountTypeID;
-    private Long mnemonic;
-    private Long accountTypeName;
+    private static final long serialVersionUID = 243591207966341647L;
+
+    private Integer accountTypeID;
+    private String mnemonic;
+    private String accountTypeName;
     private LocalDate creationDate;
 
     private Set<AccountTransaction> accountTransactions;
 
-    public AccountType() {
-    }
 
-    public AccountType(Long accountTypeID, Long mnemonic, Long accountTypeName) {
+    public AccountType(Integer accountTypeID, String mnemonic, String accountTypeName, LocalDate creationDate) {
         this.accountTypeID = accountTypeID;
         this.mnemonic = mnemonic;
         this.accountTypeName = accountTypeName;
         this.creationDate = creationDate;
+
+    }
+    public AccountType(String mnemonic, String accountTypeName, LocalDate creationDate) {
+        this.mnemonic = mnemonic;
+        this.accountTypeName = accountTypeName;
+        this.creationDate = creationDate;
+
     }
 
-    private static final long serialVersionUID = 243591207966341647L;
+    public AccountType() {
+    }
 
 
     @Id
-    @SequenceGenerator(name = "AccountType_ID_Seq", sequenceName = "AccountType_Seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "AccountType_ID_Seq")
-
     @Column(name = "ACCOUNT_TYPE_ID")
-    public Long getAccountTypeID() {
+    @SequenceGenerator(name = "ACCOUNT_TYPE_SEQ", sequenceName = "ACCOUNT_TYPE_SEQNAME", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACCOUNT_TYPE_SEQ")
+    public Integer getAccountTypeID() {
         return accountTypeID;
     }
 
-    public void setAccountTypeID(Long accountTypeID) {
-        this.accountTypeID = accountTypeID;
-    }
 
     @Column(name = "MNEMONIC")
-    public Long getMnemonic() {
+    public String getMnemonic() {
         return mnemonic;
     }
 
-    public void setMnemonic(Long mnemonic) {
-        this.mnemonic = mnemonic;
-    }
 
     @Column(name = "ACCOUNT_TYPE_NAME")
-    public Long getAccountTypeName() {
+    public String getAccountTypeName() {
         return accountTypeName;
     }
 
-    public void setAccountTypeName(Long accountTypeName) {
-        this.accountTypeName = accountTypeName;
-    }
 
     @Column(name = "CREATION_DATE")
     public LocalDate getCreationDate() { return creationDate; }
 
-    public void setCreationDate(LocalDate creationDate) { this.creationDate = creationDate; }
 
 
     @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
@@ -85,27 +73,40 @@ public class AccountType implements Serializable {
         this.accountTransactions = accountTransactions;
     }
 
+    public void setAccountTypeID(Integer accountTypeID) {
+        this.accountTypeID = accountTypeID;
+    }
+
+    public void setMnemonic(String mnemonic) {
+        this.mnemonic = mnemonic;
+    }
+
+    public void setAccountTypeName(String accountTypeName) {
+        this.accountTypeName = accountTypeName;
+    }
+
+    public void setCreationDate(LocalDate creationDate) { this.creationDate = creationDate; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountType that = (AccountType) o;
-        return Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(mnemonic, that.mnemonic) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(creationDate, that.creationDate) && Objects.equals(accountTransactions, that.accountTransactions);
+        return Objects.equals(accountTypeID, that.accountTypeID) && Objects.equals(mnemonic, that.mnemonic) && Objects.equals(accountTypeName, that.accountTypeName) && Objects.equals(creationDate, that.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountTypeID, mnemonic, accountTypeName, creationDate, accountTransactions);
+        return Objects.hash(accountTypeID, mnemonic, accountTypeName, creationDate);
     }
 
     @Override
     public String toString() {
         return "AccountType{" +
                 "accountTypeID=" + accountTypeID +
-                ", mnemonic=" + mnemonic +
-                ", accountTypeName=" + accountTypeName +
+                ", mnemonic=" + mnemonic + '\'' +
+                ", accountTypeName=" + accountTypeName + '\'' +
                 ", creationDate=" + creationDate +
-                ", accountTransactions=" + accountTransactions +
                 '}';
     }
 }
