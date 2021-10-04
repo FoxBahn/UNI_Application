@@ -9,7 +9,7 @@ import za.ac.nwu.account.translator.config.TranslatorConfig;
 @Import({TranslatorConfig.class})
 @Configuration
 @ComponentScan(basePackages = {
-        "za.ac.nwu.account.logic.flow"
+        "za.ac.nwu.account.logic.flow.impl"
 })
 public class LogicConfig {
 }
