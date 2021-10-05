@@ -65,7 +65,8 @@ public class AccountType implements Serializable {
 
 
 
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+//    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType")
     public Set<AccountTransaction> getAccountTransactions(){
         return accountTransactions;
     }
@@ -103,10 +104,10 @@ public class AccountType implements Serializable {
     @Override
     public String toString() {
         return "AccountType{" +
-                "accountTypeID=" + accountTypeID +
-                ", mnemonic=" + mnemonic + '\'' +
-                ", accountTypeName=" + accountTypeName + '\'' +
-                ", creationDate=" + creationDate +
+                "accountTypeID= " + accountTypeID +'\'' +
+                ", mnemonic= " + mnemonic + '\'' +
+                ", accountTypeName= " + accountTypeName + '\'' +
+                ", creationDate= " + creationDate +
                 '}';
     }
 }
