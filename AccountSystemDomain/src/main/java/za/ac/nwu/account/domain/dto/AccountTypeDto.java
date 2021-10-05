@@ -88,8 +88,8 @@ public class AccountTypeDto implements Serializable {
     public String toString() {
         return "AccountTypeDto{" +
                 "mnemonic='" + mnemonic + '\'' +
-                ", accountTypeName='" + accountTypeName + '\'' +
-                ", creationDate=" + creationDate +
+                ", accountTypeName= '" + accountTypeName + '\'' +
+                ", creationDate= " + creationDate +
                 '}';
     }
 
