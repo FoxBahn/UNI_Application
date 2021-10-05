@@ -49,7 +49,7 @@ public class AccountTypeDto implements Serializable {
             name = "Name",
             notes = "The name of the account type",
             dataType = "java.lang.String",
-            example = "MILES",
+            example = "Miles",
             required = true)
     public String getAccountTypeName() {return accountTypeName;}
 

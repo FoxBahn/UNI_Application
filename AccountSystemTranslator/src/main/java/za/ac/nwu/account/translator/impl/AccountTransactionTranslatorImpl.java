@@ -2,7 +2,6 @@ package za.ac.nwu.account.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import za.ac.nwu.account.domain.dto.AccountTransactionDto;
 import za.ac.nwu.account.domain.persistence.AccountTransaction;
 import za.ac.nwu.account.repo.persistence.AccountTransactionRepository;
 import za.ac.nwu.account.translator.AccountTransactionTranslator;
@@ -22,35 +21,32 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
    }
 
     @Override
-    public List<AccountTransactionDto> getAllAccountTransactions() {
-        List<AccountTransactionDto> accounttransactionDtos = new ArrayList<>();
+    public AccountTransaction save(AccountTransaction accountTransaction) {
         try {
-            for (AccountTransaction accountTransaction : accountTransactionRepository.findAll()) {
-                accounttransactionDtos.add(new AccountTransactionDto(accountTransaction));
-            }
-        } catch (Exception e) {
-
-            throw new RuntimeException("Unable to read from the DB", e);
+            return accountTransactionRepository.save(accountTransaction);
+        }catch (Exception e){
+            throw new RuntimeException("Unable to save to the DB",e);
         }
-        return accounttransactionDtos;
     }
 
-    public AccountTransactionDto getAccountTransactionsByMemberIDNativeQuery(Integer memberID){
+    @Override
+    public List<AccountTransaction> getAllAccountTransactions() {
+        List<AccountTransaction> accountTransactions;
         try {
-            AccountTransaction accountTransaction = accountTransactionRepository.getAccountTransactionsByMemberIDNativeQuery(memberID);
-            return new AccountTransactionDto(accountTransaction);
+                accountTransactions= new ArrayList<>(accountTransactionRepository.findAll());
+        } catch (Exception e) {
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+        return accountTransactions;
+    }
+
+    @Override
+    public AccountTransaction getAccountTransactionByPk(Long transactionID){
+        try {
+            return accountTransactionRepository.findById(transactionID).orElse(null);
         }catch (Exception e){
             throw new RuntimeException("Unable to read from the DB",e);
         }
     }
 
-    @Override
-    public AccountTransactionDto create(AccountTransactionDto accountTransactionDto) {
-        try {
-            AccountTransaction accountTransaction= accountTransactionRepository.save(accountTransactionDto.getAccountTransaction());
-            return new AccountTransactionDto(accountTransaction);
-        }catch (Exception e){
-            throw new RuntimeException("Unable to save to the DB",e);
-        }
-    }
 }

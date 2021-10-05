@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,15 +20,30 @@ import java.util.List;
 @RequestMapping("account-transaction")
 public class AccountTransactionController {
 
-
-    private final FetchAccountTransactionFlow fetchAccountTransactionFlow;
     private final CreateAccountTransactionFlow createAccountTransactionFlow;
+    private final FetchAccountTransactionFlow fetchAccountTransactionFlow;
 
     @Autowired
-    public AccountTransactionController(FetchAccountTransactionFlow fetchAccountTransactionFlow,
-                      @Qualifier("createAccountTransactionFlowName") CreateAccountTransactionFlow createAccountTransactionFlow) {
-        this.fetchAccountTransactionFlow = fetchAccountTransactionFlow;
+    public AccountTransactionController(CreateAccountTransactionFlow createAccountTransactionFlow,
+                                        FetchAccountTransactionFlow fetchAccountTransactionFlow) {
+
         this.createAccountTransactionFlow = createAccountTransactionFlow;
+        this.fetchAccountTransactionFlow = fetchAccountTransactionFlow;
+    }
+
+    @PostMapping("")
+    @ApiOperation(value = "Creates a new AccountTransaction.", notes = "Creates a new AccountTransaction in the DB.")
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "The Accountransaction was created successfully", response = GeneralResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
+    public ResponseEntity<GeneralResponse<AccountTransactionDto>> create(
+            @ApiParam(value = "Request body to create a new AccountTransaction.",
+                    required = true)
+            @RequestBody AccountTransactionDto AccountTransaction) {
+        AccountTransactionDto AccountTransactionResponse = createAccountTransactionFlow.create(AccountTransaction);
+        GeneralResponse<AccountTransactionDto> response = new GeneralResponse<>(true, AccountTransactionResponse);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/all")
@@ -41,24 +55,33 @@ public class AccountTransactionController {
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
 
     public ResponseEntity<GeneralResponse<List<AccountTransactionDto>>> getAll(){
-        List<AccountTransactionDto> accountTransactions = fetchAccountTransactionFlow.getAllAccountTransactions();
-        GeneralResponse<List<AccountTransactionDto>> response = new GeneralResponse<>(true, accountTransactions);
+        List<AccountTransactionDto> AccountTransactions = fetchAccountTransactionFlow.getAllAccountTransactions();
+        GeneralResponse<List<AccountTransactionDto>> response = new GeneralResponse<>(true, AccountTransactions);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-    @PostMapping("")
-    @ApiOperation(value = "Creates a new AccountTransaction.", notes = "Creates a new AccountTransaction in the DB.")
+
+
+    @GetMapping("/{transactionID}")
+    @ApiOperation(value = "Gets all the specific Account transaction.", notes = "Returns a list of account transactions")
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "The Accountransaction was created successfully", response = GeneralResponse.class),
+            @ApiResponse(code = 200, message = "Account transaction found", response = GeneralResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
+            @ApiResponse(code = 404, message = "Recource found", response = GeneralResponse.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = GeneralResponse.class)})
-    public ResponseEntity<GeneralResponse<AccountTransactionDto>> create(
-            @ApiParam(value = "Request body to create a new AccountTransaction.",
+
+    public ResponseEntity<GeneralResponse<AccountTransactionDto>> getAccountTransaction(
+            @ApiParam(value= "The Transaction id that is used to uniquely identify it.",
+                    example = "1245",
+                    name ="transactionID",
                     required = true)
-            @RequestBody AccountTransactionDto accountTransaction) {
-        AccountTransactionDto accountTransactionResponse = createAccountTransactionFlow.create(accountTransaction);
-        GeneralResponse<AccountTransactionDto> response = new GeneralResponse<>(true, accountTransactionResponse);
-        return new ResponseEntity(response, HttpStatus.CREATED);
+            @PathVariable("transactionID") final Long transactionID) {
+
+        AccountTransactionDto AccountTransaction = fetchAccountTransactionFlow.getAccountTransactionsByID(transactionID);
+
+        GeneralResponse<AccountTransactionDto> response = new GeneralResponse<>(true, AccountTransaction);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-
+    //TODO: *MUST HAVE* Add insert and or update Mappings of account transactions
 }

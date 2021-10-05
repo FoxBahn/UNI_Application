@@ -15,8 +15,8 @@ import java.util.Objects;
 public class AccountTransactionDto implements Serializable {
 
         private static final long serialVersionUID = 8570305150411437559L;
-
-        private AccountType accountType;
+        private Integer transactionID;
+        private String accountTypeMnemonic;
         private Integer memberID;
         private Integer amount;
         private LocalDate transactionDate;
@@ -24,106 +24,125 @@ public class AccountTransactionDto implements Serializable {
         public AccountTransactionDto() {
         }
 
-        public AccountTransactionDto(AccountType accountType, Integer memberID, Integer amount, LocalDate transactionDate) {
-            this.accountType = accountType;
+        public AccountTransactionDto(Integer transactionID,String accountTypeMnemonic, Integer memberID, Integer amount, LocalDate transactionDate) {
+            this.transactionID = transactionID;
+            this.accountTypeMnemonic = accountTypeMnemonic;
             this.memberID = memberID;
             this.amount = amount;
             this.transactionDate = transactionDate;
         }
 
-        public AccountTransactionDto(AccountTransaction accountTransactions) {
-            this.setAccountType(accountTransactions.getAccountType());
-            this.setMemberID(accountTransactions.getMemberID());
-            this.setAmount(accountTransactions.getAmount());
-            this.setTransactionDate(accountTransactions.getTransactionDate());
+        public AccountTransactionDto(AccountTransaction accountTransaction) {
+            this.transactionID = accountTransaction.getTransactionID();
+            this.accountTypeMnemonic = accountTransaction.getAccountType().getMnemonic();
+            this.memberID = accountTransaction.getMemberID();
+            this.amount = accountTransaction.getAmount();
+            this.transactionDate = accountTransaction.getTransactionDate();
         }
 
-        @ApiModelProperty(position = 1,
-                value = "AccountType ID",
-                name = "AccountTypeID",
-                notes = "Uniquely identifies the AccountType linked to the transaction",
-                dataType = "AccountType",
-                example = "Account_Type_ID",
-                required = true)
-        public AccountType getAccountType() {
-            return accountType;
-        }
+    @JsonIgnore
+    public AccountTransaction buildAccountTransaction(AccountType accountType) {
+        return new AccountTransaction(this.getTransactionID(), accountType, this.getMemberID(), this.getAmount(), this.getTransactionDate());
+    }
 
-        public void setAccountType(AccountType accountType) {
-            this.accountType = accountType;
-        }
 
-        @ApiModelProperty(position = 2,
-                value = "AccountTransaction MemberID",
-                name = "MemberID",
-                notes = "Uniquely identifies the owner of the account transaction",
-                dataType = "java.lang.Integer",
-                example = "MEMBER_ID",
-                required = true)
-        public Integer getMemberID() {
-            return memberID;
-        }
+    @ApiModelProperty(position = 3,
+            value = "AccountTransaction ID",
+            name = "TransactionID",
+            notes = "Uniquely identifies the account transaction",
+            dataType = "java.lang.Integer",
+            example = "1",
+            required = true)
+    public Integer getTransactionID() {
+        return transactionID;
+    }
 
-        public void setMemberID(Integer memberID) {
-            this.memberID = memberID;
-        }
+    public void setTransactionID(Integer transactionID) {
+        this.transactionID = transactionID;
+    }
 
-        @ApiModelProperty(position = 3,
-                value = "AccountTransaction Amount",
-                name = "TransactionAmount",
-                notes = "This is the amount of units that the account type contains",
-                dataType = "java.lang.Integer",
-                example = "250",
-                required = true)
-        public Integer getAmount() {
-            return amount;
-        }
+    @ApiModelProperty(position = 2,
+            value = "AccountType Mnemonic",
+            name = "AccountTypeMnemonic",
+            notes = "States the AccountType Mnemonic linked to the transaction",
+            dataType = "java.lang.String",
+            example = "BUCKS",
+            required = true)
+    public String getAccountTypeMnemonic() {
+        return accountTypeMnemonic;
+    }
 
-        public void setAmount(Integer amount) {
-            this.amount = amount;
-        }
+    public void setAccountTypeMnemonic(String accountTypeMnemonic) {
+        this.accountTypeMnemonic = accountTypeMnemonic;
+    }
 
-        @ApiModelProperty(position = 4,
-                value = "AccountTransaction Creation Date",
-                name = "CreationDate",
-                notes = "This is the date on which the AccountTransaction was created",
-                dataType = "java.lang.LocalDate",
-                example = "2020-01-01",
-                allowEmptyValue = true)
-        public LocalDate getTransactionDate() {
-            return transactionDate;
-        }
+    @ApiModelProperty(position = 3,
+            value = "AccountTransaction MemberID",
+            name = "MemberID",
+            notes = "Uniquely identifies the owner of the account transaction",
+            dataType = "java.lang.Integer",
+            example = "69",
+            required = true)
+    public Integer getMemberID() {
+        return memberID;
+    }
 
-        public void setTransactionDate(LocalDate transactionDate) {
-            this.transactionDate = transactionDate;
-        }
+    public void setMemberID(Integer memberID) {
+        this.memberID = memberID;
+    }
+
+    @ApiModelProperty(position = 4,
+            value = "AccountTransaction Amount",
+            name = "TransactionAmount",
+            notes = "This is the amount of units that the account type contains",
+            dataType = "java.lang.Integer",
+            example = "250",
+            required = true)
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    @ApiModelProperty(position = 5,
+            value = "AccountTransaction Creation Date",
+            name = "CreationDate",
+            notes = "This is the date on which the AccountTransaction was created",
+            dataType = "java.lang.LocalDate",
+            example = "2020-01-01",
+            allowEmptyValue = true)
+    public LocalDate getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDate transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransactionDto that = (AccountTransactionDto) o;
-        return Objects.equals(accountType, that.accountType) && Objects.equals(memberID, that.memberID) && Objects.equals(amount, that.amount) && Objects.equals(transactionDate, that.transactionDate);
-    }
-
-
-    @JsonIgnore
-    public AccountTransaction getAccountTransaction() {
-        return new AccountTransaction(getAccountType(), getMemberID(), getAmount(), getTransactionDate());
+        return Objects.equals(transactionID, that.transactionID) && Objects.equals(accountTypeMnemonic, that.accountTypeMnemonic) && Objects.equals(memberID, that.memberID) && Objects.equals(amount, that.amount) && Objects.equals(transactionDate, that.transactionDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountType, memberID, amount, transactionDate);
+        return Objects.hash(transactionID, accountTypeMnemonic, memberID, amount, transactionDate);
     }
 
     @Override
     public String toString() {
         return "AccountTransactionDto{" +
-                "accountType=" + accountType + '\'' +
+                "transactionID=" + transactionID + '\'' +
+                ", accountTypeMnemonic='" + accountTypeMnemonic + '\'' +
                 ", memberID=" + memberID + '\'' +
                 ", amount=" + amount + '\'' +
-                ", transactionDate=" + transactionDate + '\'' +
+                ", transactionDate=" + transactionDate +
                 '}';
     }
 }
