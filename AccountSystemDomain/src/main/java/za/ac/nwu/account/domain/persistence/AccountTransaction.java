@@ -13,15 +13,22 @@ public class AccountTransaction implements Serializable {
     private static final long serialVersionUID = 243591207966341647L;
 
     private Integer transactionID;
-
     private AccountType accountType;
     private Integer memberID;
-    private String amount;
+    private Integer amount;
     private LocalDate transactionDate;
 
 
-    public AccountTransaction(Integer transactionID, AccountType accountType, Integer memberID, String amount, LocalDate transactionDate) {
+    public AccountTransaction(Integer transactionID, AccountType accountType, Integer memberID, Integer amount, LocalDate transactionDate) {
         this.transactionID = transactionID;
+        this.accountType = accountType;
+        this.memberID = memberID;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+    }
+
+
+    public AccountTransaction(AccountType accountType, Integer memberID, Integer amount, LocalDate transactionDate) {
         this.accountType = accountType;
         this.memberID = memberID;
         this.amount = amount;
@@ -35,12 +42,12 @@ public class AccountTransaction implements Serializable {
     @Id
     @SequenceGenerator(name = "ACCOUNT_TRANSACTION_SEQ", sequenceName = "ACCOUNT_TRANSACTION_SEQNAME", allocationSize = 1)
     @GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "ACCOUNT_TRANSACTION_SEQ")
-    @Column(name = "ACCOUNT_MILES_ID")
+    @Column(name = "ACCOUNT_TRANSACTION_ID")
     public Integer getTransactionID() {
         return transactionID;
     }
 
-    public void setTransactionID(Integer transactionId) {
+    public void setTransactionID(Integer transactionID) {
         this.transactionID = transactionID;
     }
 
@@ -62,11 +69,11 @@ public class AccountTransaction implements Serializable {
     }
 
     @Column(name = "ACCOUNT_TRANSACTION_AMOUNT")
-    public String getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
@@ -89,17 +96,17 @@ public class AccountTransaction implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(transactionID, memberID, amount);
+        return Objects.hash(transactionID, accountType, memberID, amount, transactionDate);
     }
 
     @Override
     public String toString() {
         return "AccountTransaction{" +
-                "transactionID= " + transactionID +
-                ", accountType= "  + accountType +
-                ", memberID= " + memberID +
-                ", amount= " + amount +
-                "transactionDate= " + transactionDate +
+                "transactionID= " + transactionID +'\'' +
+                ", accountType= "  + accountType +'\'' +
+                ", memberID= " + memberID +'\'' +
+                ", amount= " + amount +'\'' +
+                ", transactionDate= " + transactionDate +
                 '}' ;
 
     }
