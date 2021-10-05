@@ -38,7 +38,6 @@ public class AccountType implements Serializable {
     public AccountType() {
     }
 
-
     @Id
     @Column(name = "ACCOUNT_TYPE_ID")
     @SequenceGenerator(name = "ACCOUNT_TYPE_SEQ", sequenceName = "ACCOUNT_TYPE_SEQNAME", allocationSize = 1)
@@ -47,25 +46,20 @@ public class AccountType implements Serializable {
         return accountTypeID;
     }
 
-
     @Column(name = "MNEMONIC")
     public String getMnemonic() {
         return mnemonic;
     }
-
 
     @Column(name = "ACCOUNT_TYPE_NAME")
     public String getAccountTypeName() {
         return accountTypeName;
     }
 
-
     @Column(name = "CREATION_DATE")
     public LocalDate getCreationDate() { return creationDate; }
 
-
-
-    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity = AccountTransaction.class, fetch = FetchType.LAZY, mappedBy = "accountType"/*, orphanRemoval = true, cascade = CascadeType.PERSIST*/)
     public Set<AccountTransaction> getAccountTransactions(){
         return accountTransactions;
     }
@@ -103,10 +97,10 @@ public class AccountType implements Serializable {
     @Override
     public String toString() {
         return "AccountType{" +
-                "accountTypeID=" + accountTypeID +
-                ", mnemonic=" + mnemonic + '\'' +
-                ", accountTypeName=" + accountTypeName + '\'' +
-                ", creationDate=" + creationDate +
+                "accountTypeID= " + accountTypeID +'\'' +
+                ", mnemonic= " + mnemonic + '\'' +
+                ", accountTypeName= " + accountTypeName + '\'' +
+                ", creationDate= " + creationDate +
                 '}';
     }
 }

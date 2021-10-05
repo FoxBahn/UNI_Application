@@ -49,7 +49,7 @@ public class AccountTypeDto implements Serializable {
             name = "Name",
             notes = "The name of the account type",
             dataType = "java.lang.String",
-            example = "MILES",
+            example = "Miles",
             required = true)
     public String getAccountTypeName() {return accountTypeName;}
 
@@ -88,8 +88,8 @@ public class AccountTypeDto implements Serializable {
     public String toString() {
         return "AccountTypeDto{" +
                 "mnemonic='" + mnemonic + '\'' +
-                ", accountTypeName='" + accountTypeName + '\'' +
-                ", creationDate=" + creationDate +
+                ", accountTypeName= '" + accountTypeName + '\'' +
+                ", creationDate= " + creationDate +
                 '}';
     }
 
