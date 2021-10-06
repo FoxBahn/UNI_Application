@@ -40,13 +40,33 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
         return accountTransactions;
     }
 
+    public AccountTransaction getAccountTransactionByMemberID(Long memberID){
+        try{
+            return accountTransactionRepository.getAccountTransactionByMemberID(memberID);
+        } catch (Exception e) {
+
+            throw new RuntimeException("Unable to read from the DB", e);
+        }
+    }
+
     @Override
     public AccountTransaction getAccountTransactionByPk(Long transactionID){
         try {
             return accountTransactionRepository.findById(transactionID).orElse(null);
         }catch (Exception e){
-            throw new RuntimeException("Unable to read from the DB",e);
+            throw new RuntimeException("Unable to read from the DB", e);
         }
-    }
+
+//    @Override
+//    public AccountTransaction getAccountTransactionByPk(Long transactionID){
+//        try {
+//            return accountTransactionRepository.getAccountTransactionByPk(transactionID);
+//        }catch (Exception e){
+//            throw new RuntimeException("Unable to read from the DB", e);
+//        }
+
+
+   }
+
 
 }

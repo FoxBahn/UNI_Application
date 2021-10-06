@@ -12,5 +12,7 @@ public interface AccountTransactionTranslator {
 
     AccountTransaction getAccountTransactionByPk(Long transactionID);
 
+    AccountTransaction getAccountTransactionByMemberID(Long memberID);
+
 //    AccountTransactionDto save(AccountTransactionDto accountTransactionDto);
 }
