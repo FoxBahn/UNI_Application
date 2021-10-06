@@ -48,7 +48,12 @@ public class AccountType implements Serializable {
 
     @Column(name = "MNEMONIC")
     public String getMnemonic() {
-        return mnemonic;
+        if (mnemonic != null)
+        {
+            return mnemonic;
+        }else{
+            return "There is no such Mnemonic in the record. Please Create the specified mnemonic. ";
+        }
     }
 
     @Column(name = "ACCOUNT_TYPE_NAME")
