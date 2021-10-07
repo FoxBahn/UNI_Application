@@ -130,7 +130,7 @@ public class AccountTransactionController {
                     required = true)
         @RequestParam(value = "newAccountTransactionAmount") final Long newAccountTransactionAmount){
 
-            AccountTransactionDto AccountTransaction = modifyAccountTransactionFlow.updateAccountTransaction(transactionID, newAccountTransactionAmount);
+            AccountTransactionDto AccountTransaction = modifyAccountTransactionFlow.update(transactionID, newAccountTransactionAmount);
 
             GeneralResponse<AccountTransactionDto> response = new GeneralResponse<>(true, AccountTransaction);
 

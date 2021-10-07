@@ -6,4 +6,6 @@ za\ac\nwu\account\logic\flow\CreateAccountTypeFlow.class
 za\ac\nwu\account\logic\flow\impl\CreateAccountTransactionFlowImpl.class
 za\ac\nwu\account\logic\flow\impl\FetchAccountTypeFlowImpl.class
 za\ac\nwu\account\logic\flow\impl\CreateAccountTypeFlowImpl.class
+za\ac\nwu\account\logic\flow\impl\ModifyAccountTransactionFlowImpl.class
 za\ac\nwu\account\logic\flow\impl\FetchAccountTransactionFlowImpl.class
+za\ac\nwu\account\logic\flow\ModifyAccountTransactionFlow.class

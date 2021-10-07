@@ -2,6 +2,7 @@ package za.ac.nwu.account.translator.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import za.ac.nwu.account.domain.dto.AccountTransactionDto;
 import za.ac.nwu.account.domain.persistence.AccountTransaction;
 import za.ac.nwu.account.repo.persistence.AccountTransactionRepository;
 import za.ac.nwu.account.translator.AccountTransactionTranslator;
@@ -48,6 +49,12 @@ public class AccountTransactionTranslatorImpl implements AccountTransactionTrans
             throw new RuntimeException("Unable to read from the DB", e);
         }
     }
+
+    @Override
+    public AccountTransactionDto updateAccountTransaction(Long transactionID, Long newAccountTransactionAmount) {
+        return null;
+    }
+
 
     @Override
     public AccountTransaction getAccountTransactionByPk(Long transactionID){
