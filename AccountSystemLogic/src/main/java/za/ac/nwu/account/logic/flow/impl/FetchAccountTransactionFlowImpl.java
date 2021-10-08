@@ -33,16 +33,18 @@ public class FetchAccountTransactionFlowImpl implements FetchAccountTransactionF
         return accountTransactionDtos;
     }
 
+    @Override
+    public AccountTransactionDto getAccountTransactionByMemberID(Long memberID) {
+        AccountTransaction accountTransaction = accountTransactionTranslator.getAccountTransactionByMemberID(memberID);
+        return null != accountTransaction ? new AccountTransactionDto(accountTransaction) : null;
+    }
 
     @Override
-    public AccountTransactionDto getAccountTransactionsByID(Long transactionID) {
+    public AccountTransactionDto getAccountTransactionByID(Long transactionID) {
         AccountTransaction accountTransaction = accountTransactionTranslator.getAccountTransactionByPk(transactionID);
         return null != accountTransaction ? new AccountTransactionDto(accountTransaction) : null;
     }
-//            @Override
-//    public List<AccountTransactionDto> getAllAccountTransactions() {
-//        List<AccountTransactionDto> accountTypeDtos = new ArrayList<>();
-//        accountTypeDtos.add(new AccountTransactionDto(new AccountType(113,"TESTCURRENCY","Test Currency", LocalDate.now(), 113, 900,  LocalDate.now()));
-//        return accountTypeDtos;
-//    }
+
+
+
 }

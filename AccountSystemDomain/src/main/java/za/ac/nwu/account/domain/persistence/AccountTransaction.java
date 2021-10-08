@@ -12,14 +12,14 @@ public class AccountTransaction implements Serializable {
 
     private static final long serialVersionUID = 243591207966341647L;
 
-    private Integer transactionID;
+    private Long transactionID;
     private AccountType accountType;
-    private Integer memberID;
+    private Long memberID ;
     private Integer amount;
     private LocalDate transactionDate;
 
 
-    public AccountTransaction(Integer transactionID, AccountType accountType, Integer memberID, Integer amount, LocalDate transactionDate) {
+    public AccountTransaction(Long transactionID, AccountType accountType, Long memberID, Integer amount, LocalDate transactionDate) {
         this.transactionID = transactionID;
         this.accountType = accountType;
         this.memberID = memberID;
@@ -28,7 +28,7 @@ public class AccountTransaction implements Serializable {
     }
 
 
-    public AccountTransaction(AccountType accountType, Integer memberID, Integer amount, LocalDate transactionDate) {
+    public AccountTransaction(AccountType accountType, Long memberID, Integer amount, LocalDate transactionDate) {
         this.accountType = accountType;
         this.memberID = memberID;
         this.amount = amount;
@@ -36,18 +36,17 @@ public class AccountTransaction implements Serializable {
     }
 
     public AccountTransaction() {
-
     }
 
     @Id
     @SequenceGenerator(name = "ACCOUNT_TRANSACTION_SEQ", sequenceName = "ACCOUNT_TRANSACTION_SEQNAME", allocationSize = 1)
     @GeneratedValue(strategy =GenerationType.SEQUENCE, generator = "ACCOUNT_TRANSACTION_SEQ")
     @Column(name = "ACCOUNT_TRANSACTION_ID")
-    public Integer getTransactionID() {
+    public Long getTransactionID() {
         return transactionID;
     }
 
-    public void setTransactionID(Integer transactionID) {
+    public void setTransactionID(Long transactionID) {
         this.transactionID = transactionID;
     }
 
@@ -60,11 +59,11 @@ public class AccountTransaction implements Serializable {
     }
 
     @Column(name = "ACCOUNT_MEMBER_ID")
-    public Integer getMemberID() {
+    public Long getMemberID() {
         return memberID;
     }
 
-    public void setMemberID(Integer memberId) {
+    public void setMemberID(Long memberId) {
         this.memberID = memberID;
     }
 
@@ -91,7 +90,7 @@ public class AccountTransaction implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountTransaction that = (AccountTransaction) o;
-        return Objects.equals(transactionID, that.transactionID) && Objects.equals(accountType, that.accountType) && Objects.equals(memberID, that.memberID) &&  Objects.equals(transactionDate, that.transactionDate);
+        return Objects.equals(transactionID, that.transactionID) && Objects.equals(accountType, that.accountType) && Objects.equals(memberID, that.memberID) && Objects.equals(amount, that.amount) &&  Objects.equals(transactionDate, that.transactionDate);
     }
 
     @Override
