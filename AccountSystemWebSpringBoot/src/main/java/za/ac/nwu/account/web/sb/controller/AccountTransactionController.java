@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import za.ac.nwu.account.logic.flow.CreateAccountTransactionFlow;
 import za.ac.nwu.account.logic.flow.FetchAccountTransactionFlow;
 import za.ac.nwu.account.logic.flow.ModifyAccountTransactionFlow;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -111,7 +113,7 @@ public class AccountTransactionController {
     }
 //////////////////////////////////////Put (Update)
         @PutMapping("{transactionID}")
-        @ApiOperation(value = "Updates the specific Account transaction.", notes = "Updates the accountTransaction according to the given transaction ID")
+        @ApiOperation(value = "Updates the specific Account transaction amount of units.", notes = "Updates the accountTransaction amount according to the given transaction ID")
         @ApiResponses(value = {
                 @ApiResponse(code = 200, message = "Account transaction Updates", response = GeneralResponse.class),
                 @ApiResponse(code = 400, message = "Bad Request", response = GeneralResponse.class),
@@ -128,9 +130,16 @@ public class AccountTransactionController {
         @ApiParam(value = "The new Account Transaction Amount that the member has and should be shown on their account",
                     name = "newAccountTransactionAmount",
                     required = true)
-        @RequestParam(value = "newAccountTransactionAmount") final Long newAccountTransactionAmount){
+        @RequestParam(value = "newAccountTransactionAmount") final Long newAccountTransactionAmount,
 
-            AccountTransactionDto AccountTransaction = modifyAccountTransactionFlow.update(transactionID, newAccountTransactionAmount);
+        @ApiParam(value = "The optional new date the transaction can be updated with in ISO date format (yyyy-mm-dd)\r\n if empty/null the date will not be altered.",
+                    name = "newCreationDate")
+                @RequestParam(value = "newCreationDate", required = false)
+                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+        LocalDate newCreationDate)
+            {
+
+            AccountTransactionDto AccountTransaction = modifyAccountTransactionFlow.update(transactionID, newAccountTransactionAmount, newCreationDate);
 
             GeneralResponse<AccountTransactionDto> response = new GeneralResponse<>(true, AccountTransaction);
 

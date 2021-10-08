@@ -9,6 +9,8 @@ import za.ac.nwu.account.logic.flow.FetchAccountTransactionFlow;
 import za.ac.nwu.account.logic.flow.ModifyAccountTransactionFlow;
 import za.ac.nwu.account.translator.AccountTransactionTranslator;
 
+import java.time.LocalDate;
+
 @Transactional
 @Component
 public class ModifyAccountTransactionFlowImpl implements ModifyAccountTransactionFlow {
@@ -26,7 +28,7 @@ public class ModifyAccountTransactionFlowImpl implements ModifyAccountTransactio
 
 
     @Override
-    public AccountTransactionDto update(Long transactionID, Long newAccountTransactionAmount) {
+    public AccountTransactionDto update(Long transactionID, Long newAccountTransactionAmount , LocalDate newCreationDate) {
         //Get
         AccountTransaction accountTransaction = accountTransactionTranslator.getAccountTransactionByPk(transactionID);
         return null != accountTransaction ? new AccountTransactionDto(accountTransaction) : null;
